@@ -10,9 +10,12 @@ val scala2_13 = "2.13.6"
 lazy val slackVersion = "1.12.1"
 // cats
 lazy val catsVersion = "2.6.1"
+// cats-effect
 lazy val catsEffectVersion = "3.2.8"
 // airframe
-lazy val airframeVersion= "21.6.0"
+lazy val airframeVersion = "21.6.0"
+// scala-test
+lazy val scalatestVersion = "3.2.9"
 
 // modules for entities
 lazy val `entities` = (project in file("modules/entities")).settings(
@@ -26,7 +29,8 @@ lazy val `usecases` = (project in file("modules/usecases"))
     name := s"$baseName-usecases",
     scalaVersion := scala2_13,
     libraryDependencies ++= Seq(
-      "org.typelevel" %% "cats-core" % catsVersion
+      "org.typelevel" %% "cats-core" % catsVersion,
+      "org.scalatest" %% "scalatest" % scalatestVersion
     )
   )
   .dependsOn(entities)

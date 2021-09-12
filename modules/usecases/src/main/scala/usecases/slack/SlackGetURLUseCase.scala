@@ -10,7 +10,7 @@ import usecases.UseCase
 case class SlackGetURLInputData(urlName: URLName)
 case class SlackGetURLOutputData(urlData: Option[URLData])
 
-class SlackGetURLUseCase[F[_]](slackRepository: SlackRepository[F])
+class SlackGetURLUseCase[F[_]](implicit slackRepository: SlackRepository[F])
   extends UseCase[F, SlackGetURLInputData, SlackGetURLOutputData] {
 
   def execute(inputData: SlackGetURLInputData)(implicit F: Monad[F]): F[SlackGetURLOutputData] =
