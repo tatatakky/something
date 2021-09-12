@@ -1,20 +1,27 @@
 package adapters.controllers
 
-import adapters.DIModules
-import cats.effect.IO
 import entities.domain.slack.URLName
+
 import usecases.slack.{SlackGetURLInputData, SlackGetURLUseCase}
-import wvlet.airframe.Design
+
+import adapters.DIModules
+import adapters.presenters.SlackPresenter
+
+import cats.effect.IO
+import cats.effect.unsafe.IORuntime
+import wvlet.airframe.{Design, Session}
 
 class SlackController {
 
-  val design: Design = DIModules.designs
-  val session = design.newSession
+  implicit val runtime: IORuntime = cats.effect.unsafe.implicits.global
+
+  val design: Design   = DIModules.designs
+  val session: Session = design.newSession
   session.start
 
   def getURL(urlName: String): String = {
     val inputData: SlackGetURLInputData = SlackGetURLInputData( URLName(urlName) )
     val slackGetURLUseCase = session.build[SlackGetURLUseCase[IO]]
-    slackGetURLUseCase.execute(inputData).unsafeRunSync()(cats.effect.unsafe.implicits.global).toString
+    SlackPresenter.convert( slackGetURLUseCase.execute(inputData).unsafeRunSync() )
   }
 }
