@@ -15,7 +15,7 @@ lazy val catsEffectVersion = "3.2.8"
 // airframe
 lazy val airframeVersion = "21.6.0"
 // scala-test
-lazy val scalatestVersion = "3.2.9"
+lazy val scalatestVersion = "3.2.10"
 
 // modules for entities
 lazy val `entities` = (project in file("modules/entities")).settings(
