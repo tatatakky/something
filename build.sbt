@@ -11,7 +11,7 @@ lazy val slackVersion = "1.12.1"
 // cats
 lazy val catsVersion = "2.6.1"
 // cats-effect
-lazy val catsEffectVersion = "3.2.8"
+lazy val catsEffectVersion = "3.2.9"
 // airframe
 lazy val airframeVersion = "21.6.0"
 // scala-test
