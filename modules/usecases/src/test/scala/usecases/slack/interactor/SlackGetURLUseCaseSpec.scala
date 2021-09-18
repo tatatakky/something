@@ -1,10 +1,10 @@
-package usecases.slack
+package usecases.slack.interactor
 
-import entities.repositories.slack.SlackRepository
-import entities.domain.slack.{Organization, URL, URLData, URLName}
-
-import org.scalatest.flatspec.AnyFlatSpec
 import cats.Id
+import entities.domain.slack.{Organization, URL, URLData, URLName}
+import entities.repositories.slack.SlackRepository
+import org.scalatest.flatspec.AnyFlatSpec
+import usecases.slack.outputboundary.SlackGetURLPresenter
 
 class SlackGetURLUseCaseSpec extends AnyFlatSpec {
 
@@ -13,6 +13,14 @@ class SlackGetURLUseCaseSpec extends AnyFlatSpec {
       urlName match {
         case URLName("scala-lang") => Some(URLData( URL("https://www.scala-lang.org/"), Organization("EPFL") ))
         case _                     => None
+      }
+  }
+
+  implicit val slackGetURLPresenter: SlackGetURLPresenter[Id] = new SlackGetURLPresenter[Id] {
+    def convert(urlData: Option[URLData]): Id[SlackGetURLOutputData] =
+      urlData match {
+        case Some(urlData) => SlackGetURLOutputData(Some(urlData))
+        case None          => SlackGetURLOutputData(None)
       }
   }
 

@@ -1,4 +1,4 @@
-package usecases
+package usecases.slack.inputboundary
 
 import cats.Monad
 
